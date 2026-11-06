@@ -9744,7 +9744,7 @@
       <div class="p-navlinks"><span>Projects</span><span>Experience</span><span>Approach</span><span>Speaking</span></div>
     </nav>
 
-    <section class="p-hero hero-enter in-view">
+    <section class="p-hero hero-enter">
       <div>
         <div class="p-hero-eyebrow he-item" style="transition-delay:40ms">CX Transformation &amp; AI Operations Leader</div>
         <h1 class="p-hero-h1 he-item spot-wrap" style="transition-delay:120ms">
@@ -10069,6 +10069,19 @@
     els.forEach(function(el){io.observe(el);});
     // backstop: nothing may stay hidden if the observer misbehaves
     setTimeout(showAll,6000);
+  }
+  // hero entrance: starts hidden, plays once after first paint (was hard-coded as already played)
+  var hero=document.querySelector('.hero-enter');
+  if(hero){requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('in-view');});});}
+  setTimeout(function(){if(hero)hero.classList.add('in-view');},1500);
+  // cursor spotlight on the headline
+  var spot=document.querySelector('.spot-wrap');
+  if(spot&&!reduce){
+    document.addEventListener('mousemove',function(e){
+      var r=spot.getBoundingClientRect();
+      spot.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      spot.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
   }
   // count-up for the stat numbers
   [].forEach.call(document.querySelectorAll('[data-count]'),function(el){
